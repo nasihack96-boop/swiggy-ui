@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Fruitables - Vegetable Website Template</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet"> 
+
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+        <!-- VIEW CART -->
+
+
+
+
+<script>
+
+    /* FOOD DATA */
+
+    const foods = {
+
+        1: {
+            name: "Margherita",
+            price: 149
+        },
+
+        2: {
+            name: "Veggie Feast",
+            price: 229
+        },
+
+        3: {
+            name: "Tandoori Paneer",
+            price: 369
+        }
+
+    };
+
+
+    /* GET CART */
+
+    let cart =
+        JSON.parse(localStorage.getItem("cart")) || {};
+
+
+    /* SAVE CART */
+
+    function saveCart() {
+
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(cart)
+        );
+
+    }
+
+
+    /* ADD ITEM */
+
+    function addItem(id) {
+
+        if (!cart[id]) {
+
+            cart[id] = 1;
+
+        } else {
+
+            cart[id]++;
+
+        }
+
+        saveCart();
+
+        updatePage();
+
+    }
+
+
+    /* REMOVE ITEM */
+
+    function removeItem(id) {
+
+        if (cart[id]) {
+
+            cart[id]--;
+
+            if (cart[id] <= 0) {
+
+                delete cart[id];
+
+            }
+
+        }
+
+        saveCart();
+
+        updatePage();
+
+    }
+
+
+    /* DISPLAY BUTTON */
+
+    function displayControl(id) {
+
+        let control =
+            document.getElementById("control-" + id);
+
+        let quantity =
+            cart[id] || 0;
+
+
+        if (quantity === 0) {
+
+            control.innerHTML = `
+
+                <button onclick="addItem(${id})">
+                    ADD
+                </button>
+
+            `;
+
+        } else {
+
+            control.innerHTML = `
+
+                <button onclick="removeItem(${id})">
+                    −
+                </button>
+
+                <span>
+                    ${quantity}
+                </span>
+
+                <button onclick="addItem(${id})">
+                    +
+                </button>
+
+            `;
+
+        }
+
+    }
+
+
+    /* UPDATE EVERYTHING */
+
+    function updatePage() {
+
+        let totalItems = 0;
+
+        Object.values(cart).forEach(
+            quantity => {
+
+                totalItems += quantity;
+
+            }
+        );
+
+
+        /* CART COUNT */
+
+        document.getElementById(
+            "cartCount"
+        ).innerText = totalItems;
+
+
+        /* RECOMMENDED COUNT */
+
+        document.getElementById(
+            "itemCount"
+        ).innerText = totalItems;
+
+
+        /* BUTTONS */
+
+        Object.keys(foods).forEach(id => {
+
+            displayControl(id);
+
+        });
+
+    }
+
+
+    /* INITIAL LOAD */
+
+    updatePage();
+
+</script>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: white;
+            color: #222;
+        }
+
+        /* Main container */
+        .container {
+            width: 850px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* Restaurant header */
+        .restaurant-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+        }
+
+        .restaurant-name {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .delivery-time {
+            font-size: 14px;
+            margin-top: 5px;
+            color: #222;
+        }
+
+        /* Search */
+        .search {
+            width: 42px;
+            height: 42px;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: #777;
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 10px;
+            padding: 10px 5px 25px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .filter {
+            height: 38px;
+            padding: 0 18px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+        }
+
+        .veg {
+            color: #008c5a;
+            font-size: 21px;
+        }
+
+        .nonveg {
+            color: #f04444;
+            font-size: 21px;
+        }
+
+        .best {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Recommended heading */
+        .recommended-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 0;
+        }
+
+        .recommended-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .arrow {
+            font-size: 24px;
+        }
+
+        /* Food item */
+        .food-item {
+            min-height: 245px;
+            border-bottom: 1px solid #ddd;
+            padding: 0 0 25px;
+            margin-bottom: 25px;
+
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .food-info {
+            width: 65%;
+            padding-top: 5px;
+        }
+
+        /* Veg icon */
+        .food-type {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #07945e;
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .food-type::after {
+            content: "";
+            width: 7px;
+            height: 7px;
+            background: #07945e;
+            border-radius: 50%;
+        }
+
+        /* Bestseller */
+        .bestseller {
+            color: #ff5b4d;
+            font-size: 13px;
+            font-weight: bold;
+            margin-left: 22px;
+            margin-top: -25px;
+            margin-bottom: 5px;
+        }
+
+        .food-name {
+            font-size: 19px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .price {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .rating {
+            color: #087c52;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 17px;
+        }
+
+        .description {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* Food image */
+        .food-image-container {
+            width: 180px;
+            position: relative;
+            text-align: center;
+        }
+
+        .food-image {
+            width: 175px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 12px;
+            display: block;
+        }
+
+        /* Add button */
+        .add-button {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -17px;
+
+            width: 130px;
+            height: 45px;
+
+            background: white;
+            border: none;
+            border-radius: 9px;
+
+            box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+
+            color: #07945e;
+            font-size: 17px;
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .add-button:hover {
+            background: #f5f5f5;
+        }
+
+        .customisable {
+            color: #777;
+            font-size: 13px;
+            margin-top: 38px;
+        }
+
+        /* Mobile */
+        @media (max-width: 900px) {
+
+            .container {
+                width: 90%;
+            }
+
+            .food-info {
+                width: 60%;
+            }
+
+            .food-image-container {
+                width: 160px;
+            }
+
+            .food-image {
+                width: 155px;
+                height: 145px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 94%;
+            }
+
+            .food-item {
+                min-height: 210px;
+            }
+
+            .food-info {
+                width: 55%;
+            }
+
+            .description {
+                font-size: 13px;
+            }
+
+            .food-image-container {
+                width: 140px;
+            }
+
+            .food-image {
+                width: 135px;
+                height: 125px;
+            }
+
+            .add-button {
+                width: 110px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <body>
+            <div class="container px-0">
+                <nav class="navbar navbar-light bg-white navbar-expand-xl">
+                    <img src="img\Swiggy-emblem.png" alt="Description of image" width="75">
+                    <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6"style="color:#FC8019 !important;">Swiggy</h1></a>
+                    <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars text-primary"></span>
+                    </button>
+                    <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                        <div class="navbar-nav mx-auto">
+                            <a href="index.html" class="nav-item nav-link active">Home</a>
+                            <a href="search.html" class="nav-item nav-link">Search</a>
+                            <a href="view.html" class="nav-item nav-link">Cart</a>
+                            <a href="help.html" class="nav-item nav-link">Help</a>
+                            <a href="login.html" class="nav-item nav-link">Sign In</a>
+                        </div>
+                        <div class="d-flex m-3 me-0">
+                            <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"style="color:#000000 !important;"></i></button>
+                            <a href="#" class="position-relative me-4 my-auto">
+                                <i class="fa fa-shopping-bag fa-2x"style="color:#000000 !important;"></i>
+                                <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                            </a>
+                            <a href="#" class="my-auto">
+                                <i class="fas fa-user fa-2x"style="color:#000000 !important;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-md-6 col-lg-4 col-xl-3"style="width:800px;margin-left:200px;margin_top:100px;">
+                <h4 style="font-family: Arial, Helvetica, sans-serif; color: black;">Pizza Hut</h4>
+                <br>
+                    <div class="fruite-img">
+                        <img src="img\pizza hut 2.avif" class="img-fluid w-100 rounded-top" style="height: 340px;">
+                    </div>
+                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;"></div>
+                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                <h4 style="font-family: Arial, Helvetica, sans-serif;color: black;font-size: 15px;">4.4 (2.4K+ ratings) • ₹350 for two</h4>
+                                <h4 style="font-family: Arial, Helvetica, sans-serif;color: rgb(5, 124, 51);font-size: 15px;">Open now  • Closes 11:00 pm</h4>
+                        </div>
+                    </div>
+            </div>
+
+
+<div class="container">
+
+
+
+    <!-- Filters -->
+    <div class="filters">
+
+        <div class="filter">
+            <span class="veg">●</span>
+        </div>
+
+        <div class="filter">
+            <span class="nonveg">▲</span>
+        </div>
+
+        <div class="filter best">
+            Bestseller
+        </div>
+
+    </div>
+
+
+    <!-- Recommended -->
+    <div class="recommended-header">
+
+        <h2>
+            Recommended (20)
+        </h2>
+
+        <span class="arrow">
+            ⌃
+        </span>
+
+    </div>
+
+
+    <!-- FOOD 1 -->
+    <div class="food-item">
+
+        <div class="food-info">
+
+            <div class="food-type"></div>
+
+            <div class="bestseller">
+                ♨ Bestseller
+            </div>
+
+            <div class="food-name">
+                Margherita
+            </div>
+
+            <div class="price">
+                ₹149
+            </div>
+
+            <div class="rating">
+                ★ 4.5 (67)
+            </div>
+
+            <div class="description">
+                Pizza topped with our herb-infused signature pan sauce
+                and mozzarella cheese. A classic treat for all cheese
+                lovers out there!
+            </div>
+
+        </div>
+
+
+        <div class="food-image-container">
+
+            <img
+                class="food-image"
+                src="img\pizza1.avif"
+                alt="Margherita Pizza"
+            >
+
+            <button class="add-button">
+                ADD
+            </button>
+
+            <div class="customisable">
+                Customisable
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOD 2 -->
+    <div class="food-item">
+
+        <div class="food-info">
+
+            <div class="food-type"></div>
+
+            <div class="food-name">
+                Veggie Feast
+            </div>
+
+            <div class="price">
+                ₹229
+            </div>
+
+            <div class="rating">
+                ★ 4.8 (23)
+            </div>
+
+            <div class="description">
+                Serves 1 | Herbed onion and green capsicum, juicy sweet
+                corn & mozzarella cheese with flavourful pan sauce.
+            </div>
+
+        </div>
+
+
+        <div class="food-image-container">
+
+            <img
+                class="food-image"
+                src="img\pizza2.avif"
+                alt="Veggie Pizza"
+            >
+
+            <button class="add-button">
+                ADD
+            </button>
+
+            <div class="customisable">
+                Customisable
+            </div>
+
+        </div>
+
+    </div>
+    
+    <!--food4-->
+    <div class="food-item">
+
+        <div class="food-info">
+
+            <div class="food-type"></div>
+
+            <div class="bestseller">
+                ♨ Bestseller
+            </div>
+
+            <div class="food-name">
+                Chicken Sausage
+            </div>
+
+            <div class="price">
+                ₹249
+            </div>
+
+            <div class="rating">
+                ★ 3.9 (37)
+            </div>
+
+            <div class="description">
+                Pizza topped with our herb-infused signature pan sauce
+                and mozzarella cheese. A classic treat for all cheese
+                lovers out there!
+            </div>
+
+        </div>
+
+
+        <div class="food-image-container">
+
+            <img
+                class="food-image"
+                src="img\pizza4.avif"
+                alt="Margherita Pizza"
+            >
+
+            <button class="add-button">
+                ADD
+            </button>
+
+            <div class="customisable">
+                Customisable
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--food5-->
+
+    <!-- FOOD 3 -->
+    <div class="food-item">
+
+        <div class="food-info">
+
+            <div class="food-type"></div>
+
+            <div class="food-name">
+                Murg Malai Chicken
+            </div>
+
+            <div class="price">
+                ₹419
+            </div>
+
+            <div class="rating">
+                ★ 4.7 (31)
+            </div>
+
+            <div class="description">
+                Delicious tandoori chicken with fresh vegetables,
+                mozzarella cheese and our signature pan sauce.
+            </div>
+
+        </div>
+
+
+        <div class="food-image-container">
+
+            <img
+                class="food-image"
+                src="img\pizza3.avif"
+                alt="Tandoori Paneer Pizza"
+            >
+            <a href="view.html">
+            <button class="add-button">
+                ADD
+            </button>
+            </a>
+            <div class="customisable">
+                Customisable
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- Footer Start -->
+        <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+            <div class="container py-5">
+                <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
+                    <div class="row g-4">
+                        <div class="col-lg-3">
+                            <a href="#">
+                                <h1 class="text-primary mb-0"style="color:#FC8019 !important;">Swiggy</h1>
+                                <p class="text-secondary mb-0"style="color:yellow !important;">Good Foods</p>
+                            </a>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="d-flex justify-content-end pt-3">
+                                <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube"></i></a>
+                                <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-5">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="d-flex flex-column text-start footer-item">
+                            <h4 class="text-light mb-3">Company</h4>
+                            <a class="btn-link" href="">About Us</a>
+                            <a class="btn-link" href="">Swiggy Corporate</a>
+                            <a class="btn-link" href="">Careers</a>
+                            <a class="btn-link" href="">Team</a>
+                            <a class="btn-link" href="">Swiggy One</a>
+                            <a class="btn-link" href="">Swiggy Instamart</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="d-flex flex-column text-start footer-item">
+                            <h4 class="text-light mb-3">Contact Us</h4>
+                            <a class="btn-link" href="">Helps & Support</a>
+                            <a class="btn-link" href="">Partner with us</a>
+                            <a class="btn-link" href="">Ride with Us</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="d-flex flex-column text-start footer-item">
+                            <h4 class="text-light mb-3">Available in:</h4>
+                            <a class="btn-link" href="">Bangalore</a>
+                            <a class="btn-link" href="">Gurgaon</a>
+                            <a class="btn-link" href="">Hyderabad</a>
+                            <a class="btn-link" href="">Delhi</a>
+                            <a class="btn-link" href="">pune</a>
+                            <a class="btn-link" href="">Kerala</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="d-flex flex-column text-start footer-item">
+                            <h4 class="text-light mb-3">Life at Swiggy</h4>
+                            <a class="btn-link" href="">Explore with Swiggy</a>
+                            <a class="btn-link" href="">Swiggy News</a>
+                            <a class="btn-link" href="">Snackables</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+</body>
+</html>
+
+
+
+
+
+ 

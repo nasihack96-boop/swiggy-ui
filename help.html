@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Help & Support</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+            background: #f7f7f7;
+            color: #222;
+        }
+
+
+        /* HEADER */
+
+        .header {
+            height: 75px;
+
+            background: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 8%;
+
+            border-bottom: 1px solid #eee;
+        }
+
+
+        .logo {
+            color: #ff5200;
+
+            font-size: 30px;
+
+            font-weight: bold;
+        }
+
+
+        .back {
+            text-decoration: none;
+
+            color: #333;
+
+            font-size: 15px;
+        }
+
+
+        /* MAIN */
+
+        .container {
+            width: 850px;
+
+            margin: 40px auto;
+        }
+
+
+        /* TITLE */
+
+        .title {
+            margin-bottom: 25px;
+        }
+
+
+        .title h1 {
+            font-size: 28px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .title p {
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        /* SEARCH */
+
+        .search-box {
+            background: white;
+
+            padding: 20px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,0.05);
+        }
+
+
+        .search {
+            width: 100%;
+
+            height: 50px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 5px;
+
+            padding: 0 18px;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+
+        .search:focus {
+            border-color: #ff5200;
+        }
+
+
+        /* CATEGORY */
+
+        .section-title {
+            font-size: 18px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .categories {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .category {
+            background: white;
+
+            padding: 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            border: 1px solid #eee;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .category:hover {
+            box-shadow:
+                0 4px 12px rgba(0,0,0,0.08);
+
+            transform: translateY(-2px);
+        }
+
+
+        .category-icon {
+            width: 45px;
+
+            height: 45px;
+
+            background: #fff1eb;
+
+            border-radius: 8px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 22px;
+        }
+
+
+        .category h3 {
+            font-size: 15px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .category p {
+            font-size: 12px;
+
+            color: #777;
+        }
+
+
+        /* FAQ */
+
+        .faq-section {
+            background: white;
+
+            padding: 25px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .faq {
+            border-bottom: 1px solid #eee;
+
+            padding: 18px 0;
+        }
+
+
+        .faq:last-child {
+            border-bottom: none;
+        }
+
+
+        .question {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            font-weight: bold;
+        }
+
+
+        .arrow {
+            color: #777;
+
+            font-size: 18px;
+        }
+
+
+        .answer {
+            display: none;
+
+            color: #666;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            padding-top: 12px;
+
+            padding-right: 30px;
+        }
+
+
+        .answer.show {
+            display: block;
+        }
+
+
+        /* CONTACT */
+
+        .contact {
+            background: white;
+
+            padding: 25px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .contact p {
+            color: #666;
+
+            font-size: 14px;
+
+            margin: 8px 0 20px;
+        }
+
+
+        .contact-buttons {
+            display: flex;
+
+            gap: 12px;
+        }
+
+
+        .contact-button {
+            padding: 12px 20px;
+
+            border: 1px solid #ff5200;
+
+            background: white;
+
+            color: #ff5200;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+
+        .contact-button:hover {
+            background: #ff5200;
+
+            color: white;
+        }
+
+
+        /* FOOTER */
+
+        .footer {
+            text-align: center;
+
+            padding: 25px;
+
+            color: #999;
+
+            font-size: 12px;
+        }
+
+
+        /* MOBILE */
+
+        @media(max-width: 900px) {
+
+            .container {
+                width: 90%;
+            }
+
+        }
+
+
+        @media(max-width: 600px) {
+
+            .header {
+                padding: 0 20px;
+            }
+
+
+            .container {
+                width: 94%;
+
+                margin: 25px auto;
+            }
+
+
+            .categories {
+                grid-template-columns: 1fr;
+            }
+
+
+            .contact-buttons {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+            swiggy
+        </div>
+
+
+        <a
+            href="index.html"
+            class="back">
+
+            ← Back to Home
+
+        </a>
+
+    </header>
+
+
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+
+        <!-- TITLE -->
+
+        <div class="title">
+
+            <h1>
+                Help & Support
+            </h1>
+
+            <p>
+                How can we help you today?
+            </p>
+
+        </div>
+
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                class="search"
+                id="search"
+                placeholder="Search for help"
+                onkeyup="searchHelp()"
+            >
+
+        </div>
+
+
+
+        <!-- CATEGORIES -->
+
+        <h2 class="section-title">
+            Help with your order
+        </h2>
+
+
+        <div class="categories">
+
+
+            <div
+                class="category"
+                onclick="showMessage('Order Issues')">
+
+                <div class="category-icon">
+                    🛵
+                </div>
+
+                <div>
+
+                    <h3>
+                        Order Issues
+                    </h3>
+
+                    <p>
+                        Problems with your order
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div
+                class="category"
+                onclick="showMessage('Delivery')">
+
+                <div class="category-icon">
+                    📦
+                </div>
+
+                <div>
+
+                    <h3>
+                        Delivery
+                    </h3>
+
+                    <p>
+                        Track or manage delivery
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div
+                class="category"
+                onclick="showMessage('Payment')">
+
+                <div class="category-icon">
+                    💳
+                </div>
+
+                <div>
+
+                    <h3>
+                        Payment & Refunds
+                    </h3>
+
+                    <p>
+                        Payment and refund related help
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div
+                class="category"
+                onclick="showMessage('Account')">
+
+                <div class="category-icon">
+                    👤
+                </div>
+
+                <div>
+
+                    <h3>
+                        Account & Login
+                    </h3>
+
+                    <p>
+                        Manage your account
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- FAQ -->
+
+        <div class="faq-section">
+
+            <h2 class="section-title">
+                Frequently Asked Questions
+            </h2>
+
+
+
+            <div class="faq">
+
+                <div
+                    class="question"
+                    onclick="toggleFAQ(this)">
+
+                    <span>
+                        Where is my order?
+                    </span>
+
+                    <span class="arrow">
+                        +
+                    </span>
+
+                </div>
+
+
+                <div class="answer">
+
+                    You can check your order status from
+                    the Orders section. The delivery status
+                    will be updated as your order moves
+                    towards you.
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq">
+
+                <div
+                    class="question"
+                    onclick="toggleFAQ(this)">
+
+                    <span>
+                        How can I cancel my order?
+                    </span>
+
+                    <span class="arrow">
+                        +
+                    </span>
+
+                </div>
+
+
+                <div class="answer">
+
+                    Open your current order and select
+                    the cancellation option if it is
+                    available for your order.
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq">
+
+                <div
+                    class="question"
+                    onclick="toggleFAQ(this)">
+
+                    <span>
+                        How do I get a refund?
+                    </span>
+
+                    <span class="arrow">
+                        +
+                    </span>
+
+                </div>
+
+
+                <div class="answer">
+
+                    If your order is eligible for a refund,
+                    the refund will be processed according
+                    to the applicable payment and refund
+                    policy.
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq">
+
+                <div
+                    class="question"
+                    onclick="toggleFAQ(this)">
+
+                    <span>
+                        My payment failed. What should I do?
+                    </span>
+
+                    <span class="arrow">
+                        +
+                    </span>
+
+                </div>
+
+
+                <div class="answer">
+
+                    Please check your payment method and
+                    try again. If the amount was deducted,
+                    check your transaction status before
+                    attempting another payment.
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq">
+
+                <div
+                    class="question"
+                    onclick="toggleFAQ(this)">
+
+                    <span>
+                        I received the wrong item.
+                    </span>
+
+                    <span class="arrow">
+                        +
+                    </span>
+
+                </div>
+
+
+                <div class="answer">
+
+                    Go to your order details and contact
+                    support with the details of the issue.
+                    Our support team can help you resolve
+                    the problem.
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- CONTACT SUPPORT -->
+
+        <div class="contact">
+
+            <h2>
+                Still need help?
+            </h2>
+
+            <p>
+                Our support team is here to help you
+                with your questions and concerns.
+            </p>
+
+
+            <div class="contact-buttons">
+
+                <button
+                    class="contact-button"
+                    onclick="contactSupport()">
+
+                    💬 Chat with Support
+
+                </button>
+
+
+                <button
+                    class="contact-button"
+                    onclick="contactSupport()">
+
+                    📧 Contact Us
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        © 2026 Swiggy-style Help Center
+
+    </footer>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+
+        /* FAQ */
+
+        function toggleFAQ(element) {
+
+            const answer =
+                element.nextElementSibling;
+
+            const arrow =
+                element.querySelector(".arrow");
+
+
+            answer.classList.toggle("show");
+
+
+            if (
+                answer.classList.contains("show")
+            ) {
+
+                arrow.innerText = "−";
+
+            }
+
+            else {
+
+                arrow.innerText = "+";
+
+            }
+
+        }
+
+
+
+        /* CATEGORY */
+
+        function showMessage(category) {
+
+            alert(
+                "You selected: " + category
+            );
+
+        }
+
+
+
+        /* CONTACT */
+
+        function contactSupport() {
+
+            alert(
+                "Support chat will be connected here."
+            );
+
+        }
+
+
+
+        /* SEARCH */
+
+        function searchHelp() {
+
+            const search =
+                document.getElementById("search")
+                .value
+                .toLowerCase();
+
+
+            const faqs =
+                document.querySelectorAll(".faq");
+
+
+            faqs.forEach(faq => {
+
+                const text =
+                    faq.innerText.toLowerCase();
+
+
+                if (text.includes(search)) {
+
+                    faq.style.display = "block";
+
+                }
+
+                else {
+
+                    faq.style.display = "none";
+
+                }
+
+            });
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

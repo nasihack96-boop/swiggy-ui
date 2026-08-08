@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>View Cart</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+            background: #f7f7f7;
+            color: #222;
+        }
+
+
+        .container {
+            width: 850px;
+            margin: 40px auto;
+        }
+
+
+        /* HEADER */
+
+        .header {
+            background: white;
+            padding: 25px;
+        }
+
+
+        .header h2 {
+            font-size: 23px;
+        }
+
+
+        .header p {
+            color: #777;
+            margin-top: 5px;
+        }
+
+
+        /* CART */
+
+        .cart-box {
+            background: white;
+            margin-top: 15px;
+            padding: 25px;
+        }
+
+
+        /* RESTAURANT */
+
+        .restaurant {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            padding-bottom: 20px;
+
+            border-bottom: 1px solid #eee;
+        }
+
+
+        .restaurant-icon {
+            width: 45px;
+            height: 45px;
+
+            background: #ff5200;
+
+            border-radius: 8px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 23px;
+        }
+
+
+        .restaurant h3 {
+            font-size: 18px;
+        }
+
+
+        .restaurant p {
+            color: #777;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+
+        /* FOOD */
+
+        .food-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 20px 0;
+
+            border-bottom: 1px solid #eee;
+        }
+
+
+        .food-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+
+        .food-image {
+            width: 75px;
+            height: 75px;
+
+            object-fit: cover;
+
+            border-radius: 8px;
+        }
+
+
+        .food-details h4 {
+            font-size: 16px;
+            margin-bottom: 7px;
+        }
+
+
+        .food-details p {
+            font-size: 13px;
+            color: #777;
+        }
+
+
+        .price {
+            margin-top: 7px;
+            font-weight: bold;
+        }
+
+
+        /* QUANTITY */
+
+        .quantity {
+            display: flex;
+
+            align-items: center;
+
+            border: 1px solid #ddd;
+
+            border-radius: 5px;
+
+            overflow: hidden;
+        }
+
+
+        .quantity button {
+            width: 35px;
+            height: 35px;
+
+            border: none;
+
+            background: white;
+
+            color: #008c5a;
+
+            font-size: 20px;
+
+            cursor: pointer;
+        }
+
+
+        .quantity span {
+            width: 35px;
+
+            text-align: center;
+
+            font-weight: bold;
+        }
+
+
+        /* BILL */
+
+        .bill {
+            background: white;
+
+            margin-top: 15px;
+
+            padding: 25px;
+        }
+
+
+        .bill h3 {
+            margin-bottom: 20px;
+        }
+
+
+        .bill-row {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 15px;
+
+            color: #555;
+        }
+
+
+        .discount {
+            color: #008c5a;
+            font-weight: bold;
+        }
+
+
+        .total {
+            border-top: 1px solid #ddd;
+
+            padding-top: 18px;
+
+            margin-top: 10px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            font-size: 19px;
+
+            font-weight: bold;
+        }
+
+
+        /* BUTTON */
+
+        .pay-button {
+            width: 100%;
+
+            height: 50px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            background: #ff5200;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            margin-top: 20px;
+
+            cursor: pointer;
+        }
+
+
+        .pay-button:hover {
+            background: #e64a00;
+        }
+
+
+        /* EMPTY */
+
+        .empty {
+            text-align: center;
+
+            padding: 50px;
+
+            color: #777;
+        }
+
+
+        .back {
+            display: inline-block;
+
+            margin-top: 20px;
+
+            color: #ff5200;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+
+        /* MOBILE */
+
+        @media(max-width:900px) {
+
+            .container {
+                width: 90%;
+            }
+
+        }
+
+
+        @media(max-width:600px) {
+
+            .container {
+                width: 95%;
+                margin: 20px auto;
+            }
+
+            .food-left {
+                width: 60%;
+            }
+
+            .food-image {
+                width: 60px;
+                height: 60px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h2>
+            View Cart
+        </h2>
+
+        <p>
+            <span id="itemCount">0</span> items
+        </p>
+
+    </div>
+
+
+    <!-- CART -->
+
+    <div class="cart-box">
+
+
+        <!-- RESTAURANT -->
+
+        <div class="restaurant">
+
+            <div class="restaurant-icon">
+                🍕
+            </div>
+
+            <div>
+
+                <h3>
+                    Pizza Hut
+                </h3>
+
+                <p>
+                    Bharathi Road
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- CART ITEMS -->
+
+        <div id="cartItems"></div>
+
+
+        <!-- DELIVERY -->
+
+        <div style="
+            background:#fff7ed;
+            padding:15px;
+            margin-top:20px;
+            font-size:14px;
+        ">
+
+            🚴
+            <strong>
+                Delivery in 15–20 mins
+            </strong>
+
+            <br>
+
+            Your order will be delivered fresh and hot.
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- BILL -->
+
+    <div class="bill">
+
+        <h3>
+            Bill Details
+        </h3>
+
+
+        <div class="bill-row">
+
+            <span>
+                Item Total
+            </span>
+
+            <span id="itemTotal">
+                ₹0
+            </span>
+
+        </div>
+
+
+        <div class="bill-row">
+
+            <span>
+                Delivery Fee
+            </span>
+
+            <span>
+                ₹30
+            </span>
+
+        </div>
+
+
+        <div class="bill-row">
+
+            <span>
+                Platform Fee
+            </span>
+
+            <span>
+                ₹5
+            </span>
+
+        </div>
+
+
+        <div class="bill-row discount">
+
+            <span>
+                Discount
+            </span>
+
+            <span>
+                -₹20
+            </span>
+
+        </div>
+
+
+        <div class="total">
+
+            <span>
+                To Pay
+            </span>
+
+            <span id="total">
+                ₹15
+            </span>
+
+        </div>
+
+
+        <button
+            class="pay-button"
+            onclick="proceedToPay()">
+
+            Proceed to Pay
+
+        </button>
+
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+    /* FOOD DATA */
+
+    const foods = {
+
+        1: {
+            name: "Margherita",
+            price: 149,
+
+            image:
+            "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=300&q=80",
+
+            description:
+            "Classic cheese pizza"
+        },
+
+
+        2: {
+            name: "Veggie Feast",
+            price: 229,
+
+            image:
+            "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=300&q=80",
+
+            description:
+            "Onion, capsicum & corn"
+        },
+
+
+        3: {
+            name: "Tandoori Paneer",
+            price: 369,
+
+            image:
+            "https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=300&q=80",
+
+            description:
+            "Tandoori paneer & vegetables"
+        }
+
+    };
+
+
+    /* GET CART */
+
+    let cart =
+        JSON.parse(
+            localStorage.getItem("cart")
+        ) || {};
+
+
+    /* SAVE */
+
+    function saveCart() {
+
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(cart)
+        );
+
+    }
+
+
+    /* INCREASE */
+
+    function increase(id) {
+
+        cart[id]++;
+
+        saveCart();
+
+        displayCart();
+
+    }
+
+
+    /* DECREASE */
+
+    function decrease(id) {
+
+        cart[id]--;
+
+        if (cart[id] <= 0) {
+
+            delete cart[id];
+
+        }
+
+        saveCart();
+
+        displayCart();
+
+    }
+
+
+    /* DISPLAY CART */
+
+    function displayCart() {
+
+        const cartItems =
+            document.getElementById(
+                "cartItems"
+            );
+
+
+        cartItems.innerHTML = "";
+
+
+        let itemTotal = 0;
+
+        let totalItems = 0;
+
+
+        /* EMPTY CART */
+
+        if (
+            Object.keys(cart).length === 0
+        ) {
+
+            cartItems.innerHTML = `
+
+                <div class="empty">
+
+                    🛒
+
+                    <h3>
+                        Your cart is empty
+                    </h3>
+
+                    <p>
+                        Add some delicious food!
+                    </p>
+
+                    <a
+                        href="index.html"
+                        class="back">
+
+                        ← Back to Menu
+
+                    </a>
+
+                </div>
+
+            `;
+
+        }
+
+
+        /* ITEMS */
+
+        Object.keys(cart).forEach(id => {
+
+
+            let food =
+                foods[id];
+
+
+            let quantity =
+                cart[id];
+
+
+            let price =
+                food.price * quantity;
+
+
+            itemTotal += price;
+
+            totalItems += quantity;
+
+
+            cartItems.innerHTML += `
+
+                <div class="food-item">
+
+                    <div class="food-left">
+
+                        <img
+                            class="food-image"
+                            src="${food.image}"
+                        >
+
+                        <div class="food-details">
+
+                            <h4>
+                                ${food.name}
+                            </h4>
+
+                            <p>
+                                ${food.description}
+                            </p>
+
+                            <div class="price">
+                                ₹${food.price}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quantity">
+
+                        <button
+                            onclick="decrease(${id})">
+
+                            −
+
+                        </button>
+
+
+                        <span>
+                            ${quantity}
+                        </span>
+
+
+                        <button
+                            onclick="increase(${id})">
+
+                            +
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+
+        /* FEES */
+
+        let deliveryFee =
+            totalItems > 0 ? 30 : 0;
+
+        let platformFee =
+            totalItems > 0 ? 5 : 0;
+
+        let discount =
+            totalItems > 0 ? 20 : 0;
+
+
+        let total =
+            itemTotal
+            + deliveryFee
+            + platformFee
+            - discount;
+
+
+        /* UPDATE */
+
+        document.getElementById(
+            "itemCount"
+        ).innerText = totalItems;
+
+
+        document.getElementById(
+            "itemTotal"
+        ).innerText =
+            "₹" + itemTotal;
+
+
+        document.getElementById(
+            "total"
+        ).innerText =
+            "₹" + total;
+
+    }
+
+
+    /* PAYMENT */
+
+    function proceedToPay() {
+
+        if (
+            Object.keys(cart).length === 0
+        ) {
+
+            alert(
+                "Your cart is empty!"
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "Proceeding to payment..."
+        );
+
+    }
+
+
+    /* START */
+
+    displayCart();
+
+
+</script>
+
+
+</body>
+</html>

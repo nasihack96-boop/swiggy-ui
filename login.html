@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Swiggy</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f7f7f7;
+        }
+
+        /* HEADER */
+
+        .header {
+            height: 75px;
+            background: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 8%;
+
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            color: #ff5200;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .header a {
+            text-decoration: none;
+            color: #333;
+            font-size: 15px;
+        }
+
+
+        /* LOGIN AREA */
+
+        .login-container {
+            min-height: calc(100vh - 75px);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        /* LOGIN CARD */
+
+        .login-card {
+            width: 420px;
+
+            background: white;
+
+            padding: 40px;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+
+        .login-card h1 {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+
+        .login-card .subtitle {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+
+        /* INPUT */
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+
+        .input-group label {
+            display: block;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+        }
+
+
+        .input-group input {
+            width: 100%;
+
+            height: 50px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 5px;
+
+            padding: 0 15px;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+
+        .input-group input:focus {
+            border-color: #ff5200;
+        }
+
+
+        /* PASSWORD */
+
+        .password-box {
+            position: relative;
+        }
+
+
+        .password-box input {
+            padding-right: 60px;
+        }
+
+
+        .show-password {
+            position: absolute;
+
+            right: 15px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+
+            background: none;
+
+            color: #ff5200;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        /* LOGIN BUTTON */
+
+        .login-button {
+            width: 100%;
+
+            height: 50px;
+
+            margin-top: 10px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            background: #ff5200;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        .login-button:hover {
+            background: #e64a00;
+        }
+
+
+        /* FORGOT */
+
+        .forgot {
+            text-align: right;
+
+            margin-top: 12px;
+        }
+
+
+        .forgot a {
+            color: #ff5200;
+
+            text-decoration: none;
+
+            font-size: 13px;
+        }
+
+
+        /* DIVIDER */
+
+        .divider {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin: 25px 0;
+
+            color: #aaa;
+
+            font-size: 13px;
+        }
+
+
+        .divider::before,
+        .divider::after {
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background: #ddd;
+        }
+
+
+        /* GOOGLE */
+
+        .google-button {
+            width: 100%;
+
+            height: 48px;
+
+            background: white;
+
+            border: 1px solid #ddd;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        .google-button:hover {
+            background: #f8f8f8;
+        }
+
+
+        /* SIGN UP */
+
+        .signup {
+            text-align: center;
+
+            margin-top: 25px;
+
+            font-size: 14px;
+
+            color: #777;
+        }
+
+
+        .signup a {
+            color: #ff5200;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+
+        /* TERMS */
+
+        .terms {
+            text-align: center;
+
+            font-size: 11px;
+
+            color: #999;
+
+            margin-top: 25px;
+
+            line-height: 1.5;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 500px) {
+
+            .header {
+                padding: 0 20px;
+            }
+
+            .login-card {
+                width: 90%;
+
+                padding: 30px 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+            swiggy
+        </div>
+
+        <a href="index.html">
+            ← Back to Home
+        </a>
+
+    </header>
+
+
+
+    <!-- LOGIN -->
+
+    <main class="login-container">
+
+
+        <div class="login-card">
+
+
+            <h1>
+                Login
+            </h1>
+
+
+            <p class="subtitle">
+                Enter your details to continue
+            </p>
+
+
+
+            <!-- EMAIL -->
+
+            <div class="input-group">
+
+                <label>
+                    Email / Phone Number
+                </label>
+
+                <input
+                    type="text"
+                    id="email"
+                    placeholder="Enter email or phone number"
+                >
+
+            </div>
+
+
+
+            <!-- PASSWORD -->
+
+            <div class="input-group">
+
+                <label>
+                    Password
+                </label>
+
+                <div class="password-box">
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter password"
+                    >
+
+                    <button
+                        class="show-password"
+                        onclick="togglePassword()">
+
+                        Show
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FORGOT -->
+
+            <div class="forgot">
+
+                <a href="#">
+                    Forgot Password?
+                </a>
+
+            </div>
+
+
+
+            <!-- LOGIN -->
+
+            <button
+                class="login-button"
+                onclick="login()">
+
+                Login
+
+            </button>
+
+
+
+            <!-- DIVIDER -->
+
+            <div class="divider">
+                OR
+            </div>
+
+
+
+            <!-- GOOGLE -->
+
+            <button
+                class="google-button"
+                onclick="googleLogin()">
+
+                🔵 Continue with Google
+
+            </button>
+
+
+
+            <!-- SIGN UP -->
+
+            <div class="signup">
+
+                Don't have an account?
+
+                <a href="#">
+                    Sign Up
+                </a>
+
+            </div>
+
+
+
+            <!-- TERMS -->
+
+            <div class="terms">
+
+                By continuing, you agree to our
+                Terms of Service,
+                Privacy Policy and
+                Content Policies.
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        /* SHOW / HIDE PASSWORD */
+
+        function togglePassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const button =
+                document.querySelector(".show-password");
+
+
+            if (password.type === "password") {
+
+                password.type = "text";
+
+                button.innerText = "Hide";
+
+            }
+
+            else {
+
+                password.type = "password";
+
+                button.innerText = "Show";
+
+            }
+
+        }
+
+
+        /* LOGIN */
+
+        function login() {
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const password =
+                document.getElementById("password").value.trim();
+
+
+            if (email === "" || password === "") {
+
+                alert(
+                    "Please enter email/phone and password."
+                );
+
+                return;
+
+            }
+
+
+            /*
+                For your frontend project,
+                we store the login state.
+            */
+
+            localStorage.setItem(
+                "loggedIn",
+                "true"
+            );
+
+
+            localStorage.setItem(
+                "userEmail",
+                email
+            );
+
+
+            alert(
+                "Login successful!"
+            );
+
+
+            window.location.href =
+                "shop3.html";
+
+        }
+
+
+        /* GOOGLE */
+
+        function googleLogin() {
+
+            alert(
+                "Google login can be connected with Firebase later."
+            );
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

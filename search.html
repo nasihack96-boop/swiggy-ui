@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Search - Swiggy</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+            color: #222;
+        }
+
+        /* ================= HEADER ================= */
+
+        .header {
+            height: 75px;
+            border-bottom: 1px solid #eee;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 8%;
+
+            background: white;
+        }
+
+        .logo {
+            color: #ff5200;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .nav a:hover {
+            color: #ff5200;
+        }
+
+
+        /* ================= MAIN ================= */
+
+        .container {
+            width: 850px;
+            margin: 40px auto;
+        }
+
+
+        /* ================= SEARCH BAR ================= */
+
+        .search-box {
+            width: 100%;
+            height: 55px;
+
+            border: 1px solid #ddd;
+            border-radius: 5px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 18px;
+
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-icon {
+            font-size: 21px;
+            color: #777;
+            margin-right: 12px;
+        }
+
+        .search-input {
+            border: none;
+            outline: none;
+
+            width: 100%;
+
+            font-size: 15px;
+        }
+
+        .clear-button {
+            border: none;
+            background: none;
+
+            color: #777;
+
+            font-size: 18px;
+
+            cursor: pointer;
+
+            display: none;
+        }
+
+
+        /* ================= RECENT ================= */
+
+        .section {
+            margin-top: 40px;
+        }
+
+        .section-title {
+            font-size: 19px;
+            font-weight: bold;
+
+            margin-bottom: 18px;
+        }
+
+        .recent-searches {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .recent {
+            border: 1px solid #ddd;
+
+            padding: 10px 16px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            cursor: pointer;
+        }
+
+        .recent:hover {
+            background: #fff3ed;
+            border-color: #ff5200;
+        }
+
+
+        /* ================= CATEGORIES ================= */
+
+        .categories {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+        }
+
+        .category {
+            border: 1px solid #eee;
+
+            border-radius: 8px;
+
+            padding: 15px;
+
+            text-align: center;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .category:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .category img {
+            width: 100px;
+            height: 80px;
+
+            object-fit: cover;
+
+            border-radius: 8px;
+
+            margin-bottom: 10px;
+        }
+
+        .category p {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+
+        /* ================= SEARCH RESULTS ================= */
+
+        .results {
+            margin-top: 40px;
+
+            display: none;
+        }
+
+        .result-count {
+            color: #777;
+
+            font-size: 13px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .restaurant {
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+            padding: 18px 0;
+
+            border-bottom: 1px solid #eee;
+
+            cursor: pointer;
+        }
+
+        .restaurant:hover {
+            background: #fafafa;
+        }
+
+        .restaurant img {
+            width: 90px;
+            height: 90px;
+
+            object-fit: cover;
+
+            border-radius: 8px;
+        }
+
+        .restaurant-info {
+            flex: 1;
+        }
+
+        .restaurant-name {
+            font-size: 17px;
+            font-weight: bold;
+
+            margin-bottom: 6px;
+        }
+
+        .restaurant-rating {
+            color: #087c52;
+
+            font-size: 13px;
+
+            margin-bottom: 6px;
+        }
+
+        .restaurant-description {
+            color: #777;
+
+            font-size: 13px;
+        }
+
+        .arrow {
+            color: #999;
+
+            font-size: 20px;
+        }
+
+
+        /* ================= EMPTY ================= */
+
+        .no-results {
+            text-align: center;
+
+            padding: 50px 0;
+
+            color: #777;
+
+            display: none;
+        }
+
+        .no-results .emoji {
+            font-size: 45px;
+
+            margin-bottom: 15px;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width: 900px) {
+
+            .container {
+                width: 90%;
+            }
+
+            .header {
+                padding: 0 5%;
+            }
+
+        }
+
+
+        @media(max-width: 600px) {
+
+            .nav {
+                gap: 10px;
+            }
+
+            .nav a {
+                display: none;
+            }
+
+            .categories {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .restaurant img {
+                width: 70px;
+                height: 70px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="logo">
+            swiggy
+        </div>
+
+
+        <nav class="nav">
+
+            <a href="shop3.html">
+                Home
+            </a>
+
+            <a href="cart.html">
+                🛒 Cart
+            </a>
+
+            <a href="login.html">
+                Login
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="container">
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <span class="search-icon">
+                🔍
+            </span>
+
+            <input
+                type="text"
+                id="searchInput"
+                class="search-input"
+                placeholder="Search for restaurants and food"
+                autocomplete="off"
+            >
+
+            <button
+                id="clearButton"
+                class="clear-button"
+                onclick="clearSearch()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+
+        <!-- ================= RECENT SEARCH ================= -->
+
+        <div class="section">
+
+            <h2 class="section-title">
+                Recent Searches
+            </h2>
+
+
+            <div class="recent-searches">
+
+                <div
+                    class="recent"
+                    onclick="searchItem('Pizza')">
+
+                    🔍 Pizza
+
+                </div>
+
+
+                <div
+                    class="recent"
+                    onclick="searchItem('Burger')">
+
+                    🔍 Burger
+
+                </div>
+
+
+                <div
+                    class="recent"
+                    onclick="searchItem('Biryani')">
+
+                    🔍 Biryani
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= POPULAR CATEGORIES ================= -->
+
+        <div class="section">
+
+            <h2 class="section-title">
+                Popular Cuisines
+            </h2>
+
+
+            <div class="categories">
+
+
+                <div
+                    class="category"
+                    onclick="searchItem('Pizza')">
+
+                    <img
+                        src="img/pizza4.avif"
+                        alt="Pizza"
+                    >
+
+                    <p>
+                        Pizza
+                    </p>
+
+                </div>
+
+
+
+                <div
+                    class="category"
+                    onclick="searchItem('Burger')">
+
+                    <img
+                        src="img\meals1.jpg_compressed"
+                        alt="Burger"
+                    >
+
+                    <p>
+                        meals
+                    </p>
+
+                </div>
+
+
+
+                <div
+                    class="category"
+                    onclick="searchItem('Biryani')">
+
+                    <img
+                        src="img/biri1.avif"
+                        alt="Biryani"
+                    >
+
+                    <p>
+                        Biryani
+                    </p>
+
+                </div>
+
+
+
+                <div
+                    class="category"
+                    onclick="searchItem('Paneer')">
+
+                    <img
+                        src="img/pizza5.avif"
+                        alt=""
+                    >
+
+                    <p>
+                        pizza
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= SEARCH RESULTS ================= -->
+
+        <div
+            class="results"
+            id="results">
+
+            <h2 class="section-title">
+                Search Results
+            </h2>
+
+            <p
+                class="result-count"
+                id="resultCount">
+            </p>
+
+
+            <!-- RESULT 1 -->
+
+            <div
+                class="restaurant"
+                data-name="Pizza Hut"
+                data-food="pizza cheese margherita">
+
+                <img
+                    src="img/pizza4.avif"
+                    alt="Pizza Hut"
+                >
+
+                <div class="restaurant-info">
+
+                    <div class="restaurant-name">
+                        Pizza Hut
+                    </div>
+
+                    <div class="restaurant-rating">
+                        ★ 4.5 • 15–20 mins
+                    </div>
+
+                    <div class="restaurant-description">
+                        Pizza, Italian, Fast Food
+                    </div>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+
+            <!-- RESULT 2 -->
+
+            <div
+                class="restaurant"
+                data-name="Biryani House"
+                data-food="biryani chicken rice">
+
+                <img
+                    src="img/biri1.avif"
+                    alt="Biryani"
+                >
+
+                <div class="restaurant-info">
+
+                    <div class="restaurant-name">
+                        Biryani House
+                    </div>
+
+                    <div class="restaurant-rating">
+                        ★ 4.3 • 20–25 mins
+                    </div>
+
+                    <div class="restaurant-description">
+                        Biryani, North Indian, Chinese
+                    </div>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+
+            <!-- RESULT 3 -->
+
+            <div
+                class="restaurant"
+                data-name="Burger King"
+                data-food="burger fries fast food">
+
+                <img
+                    src="img\meals1.jpg_compressed"
+                    alt="Burger"
+                >
+
+                <div class="restaurant-info">
+
+                    <div class="restaurant-name">
+                        meals
+                    </div>
+
+                    <div class="restaurant-rating">
+                        ★ 4.4 • 15–20 mins
+                    </div>
+
+
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+
+            <!-- RESULT 4 -->
+
+            <div
+                class="restaurant"
+                data-name="Paneer Point"
+                data-food="paneer tikka north indian">
+
+                <img
+                    src="img/pizza5.avif"
+                    alt="Paneer"
+                >
+
+                <div class="restaurant-info">
+
+                    <div class="restaurant-name">
+                        Paneer Point
+                    </div>
+
+                    <div class="restaurant-rating">
+                        ★ 4.6 • 20–25 mins
+                    </div>
+
+                    <div class="restaurant-description">
+                        North Indian, Paneer, Vegetarian
+                    </div>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================= NO RESULTS ================= -->
+
+        <div
+            class="no-results"
+            id="noResults">
+
+            <div class="emoji">
+                🔍
+            </div>
+
+            <h3>
+                No results found
+            </h3>
+
+            <p>
+                Try searching for another food or restaurant.
+            </p>
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const clearButton =
+            document.getElementById("clearButton");
+
+        const results =
+            document.getElementById("results");
+
+        const noResults =
+            document.getElementById("noResults");
+
+        const resultCount =
+            document.getElementById("resultCount");
+
+        const restaurants =
+            document.querySelectorAll(".restaurant");
+
+
+        /* ================= SEARCH ================= */
+
+        searchInput.addEventListener(
+            "input",
+            function () {
+
+                const search =
+                    this.value
+                    .toLowerCase()
+                    .trim();
+
+
+                /* CLEAR BUTTON */
+
+                if (search.length > 0) {
+
+                    clearButton.style.display =
+                        "block";
+
+                } else {
+
+                    clearButton.style.display =
+                        "none";
+
+                }
+
+
+                /* EMPTY SEARCH */
+
+                if (search === "") {
+
+                    results.style.display =
+                        "none";
+
+                    noResults.style.display =
+                        "none";
+
+                    return;
+
+                }
+
+
+                /* SHOW RESULTS */
+
+                results.style.display =
+                    "block";
+
+
+                let count = 0;
+
+
+                restaurants.forEach(
+                    restaurant => {
+
+                        const name =
+                            restaurant
+                            .dataset
+                            .name
+                            .toLowerCase();
+
+
+                        const food =
+                            restaurant
+                            .dataset
+                            .food
+                            .toLowerCase();
+
+
+                        if (
+                            name.includes(search) ||
+                            food.includes(search)
+                        ) {
+
+                            restaurant.style.display =
+                                "flex";
+
+                            count++;
+
+                        }
+
+                        else {
+
+                            restaurant.style.display =
+                                "none";
+
+                        }
+
+                    }
+                );
+
+
+                /* RESULT COUNT */
+
+                resultCount.innerText =
+                    count +
+                    " restaurants found";
+
+
+                /* NO RESULTS */
+
+                if (count === 0) {
+
+                    noResults.style.display =
+                        "block";
+
+                }
+
+                else {
+
+                    noResults.style.display =
+                        "none";
+
+                }
+
+            }
+        );
+
+
+        /* ================= SEARCH ITEM ================= */
+
+        function searchItem(value) {
+
+            searchInput.value = value;
+
+            searchInput.dispatchEvent(
+                new Event("input")
+            );
+
+            searchInput.focus();
+
+        }
+
+
+        /* ================= CLEAR ================= */
+
+        function clearSearch() {
+
+            searchInput.value = "";
+
+            clearButton.style.display =
+                "none";
+
+            results.style.display =
+                "none";
+
+            noResults.style.display =
+                "none";
+
+            searchInput.focus();
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
